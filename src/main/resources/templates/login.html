@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #d1f2eb, #76d7c4);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 450px;
+            padding: 3rem;
+            border-radius: 1rem;
+            background-color: #ffffff;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-title {
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #45b39d;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-control {
+            border-radius: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: #45b39d;
+            border: none;
+            border-radius: 0.5rem;
+            padding: 0.6rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #117a65;
+        }
+
+        .alert {
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="login-card">
+        <h3 class="text-center login-title">Se connecter</h3>
+
+        <!-- Affichage des erreurs -->
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}">
+            Identifiants invalides.
+        </div>
+
+        <!-- Formulaire de connexion -->
+        <form th:action="@{/login}" method="post">
+            <div class="mb-3">
+                <label for="login" class="form-label">Nom d'utilisateur</label>
+                <input type="text" id="login" name="login" class="form-control" placeholder="Entrez votre login" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Entrez votre mot de passe" required>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary">Connexion</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

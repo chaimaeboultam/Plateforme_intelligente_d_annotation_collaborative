@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter Annotateur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #f0f4f8, #e0f7fa);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            margin-top: 80px;
+            padding: 40px;
+            border-radius: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        .form-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0d6efd;
+            margin-bottom: 30px;
+        }
+        .form-label {
+            font-weight: 600;
+        }
+        .navbar {
+            background-color: #0d6efd;
+        }
+
+        .navbar-brand, .nav-link {
+            color: white !important;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 1rem;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+<!-- ✅ Navbar top fixed -->
+<nav class="navbar navbar-expand-lg fixed-top shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/admin"><i class="bi bi-speedometer2"></i> Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/admin/creer-dataset">Créer Dataset</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/lister-dataset">Lister Datasets</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/gerer_annotateur">Annotateurs</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/importer_dataset">Importer Dataset</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="form-container">
+    <div class="form-title">Ajouter un Annotateur</div>
+
+    <form th:action="@{/admin/gerer_annotateur/ajouter}" th:object="${annotateur}" method="post">
+        <div class="mb-3">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" th:field="*{nom}" id="nom" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="prenom" class="form-label">Prénom</label>
+            <input type="text" th:field="*{prenom}" id="prenom" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="login" class="form-label">Login</label>
+            <input type="text" th:field="*{login}" id="login" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input type="password" th:field="*{password}" id="password" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit">Ajouter</button>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

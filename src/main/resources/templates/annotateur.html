@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Annotateur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e0eafc);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .welcome-box {
+            margin-top: 120px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/annotateur">Espace Annotateur</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/annotateur/lister-taches">Mes Tâches</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login">Déconnexion</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenu principal -->
+<div class="container welcome-box text-center">
+    <h1 class="mb-4">Bienvenue,</h1>
+    <h2 class="text-primary" th:text="${annotateur.prenom} + ' ' + ${annotateur.nom}">Nom Prénom</h2>
+
+    <div class="mt-5">
+        <a href="/annotateur/lister-taches" class="btn btn-outline-primary btn-lg">Voir les tâches</a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

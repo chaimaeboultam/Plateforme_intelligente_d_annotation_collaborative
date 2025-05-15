@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Assigner Annotateurs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .container {
+      margin-top: 100px;
+    }
+    h3 {
+      color: #0d6efd;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Top Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/admin">Admin Panel</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="/admin/creer-dataset">Créer un Dataset</a></li>
+        <li class="nav-item"><a class="nav-link" href="/admin/lister-dataset">Lister les Datasets</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Déconnexion</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h3 class="mb-4 text-center">Assigner des Annotateurs</h3>
+
+  <form th:action="@{/admin/assigner-dataset}" method="post" class="shadow p-4 bg-white rounded">
+    <input type="hidden" name="datasetId" th:value="${datasetId}" />
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="table-primary">
+        <tr>
+          <th>Annotateur</th>
+          <th>Sélection</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="annotateur : ${annotateurList}">
+          <td th:text="${annotateur.nom} + ' ' + ${annotateur.prenom}">Annotateur</td>
+          <td>
+            <div class="form-check text-center">
+              <input class="form-check-input" type="checkbox" name="annotateurIds"
+                     th:value="${annotateur.id}" />
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-end mt-3">
+      <button type="submit" class="btn btn-success">Assigner</button>
+      <a href="/admin/lister-dataset" class="btn btn-secondary ms-2">Annuler</a>
+    </div>
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

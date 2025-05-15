@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #e3f2fd, #ffffff);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding-top: 70px; /* espace pour la navbar fixe */
+        }
+
+        .dashboard-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 40px;
+            border-radius: 15px;
+            background-color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #0d6efd;
+        }
+
+        .btn-dashboard {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-dashboard:hover {
+            transform: scale(1.02);
+        }
+
+        .icon-left {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 🔝 Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/admin">👤 Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="adminNavbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/creer-dataset"><i class="bi bi-folder-plus"></i> Créer Dataset</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/lister-dataset"><i class="bi bi-list-ul"></i> Lister Datasets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/gerer_annotateur"><i class="bi bi-people"></i> Annotateurs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/importer_dataset"><i class="bi bi-upload"></i> Importer Dataset</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/login">Deconnexion</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 🧩 Contenu du dashboard -->
+<div class="dashboard-container">
+    <div class="dashboard-title">Espace Admin</div>
+
+    <a href="/admin/creer-dataset" class="btn btn-primary btn-dashboard">
+        <i class="bi bi-folder-plus icon-left"></i>Créer un Dataset
+    </a>
+
+    <a href="/admin/lister-dataset" class="btn btn-success btn-dashboard">
+        <i class="bi bi-list-ul icon-left"></i>Lister les Datasets
+    </a>
+
+    <a href="/admin/gerer_annotateur" class="btn btn-warning btn-dashboard text-dark">
+        <i class="bi bi-people icon-left"></i>Gérer les Annotateurs
+    </a>
+
+    <a href="/admin/importer_dataset" class="btn btn-info btn-dashboard text-white">
+        <i class="bi bi-upload icon-left"></i>Importer un Dataset
+    </a>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
