@@ -74,11 +74,9 @@
             <tbody>
             <tr th:each="dataset : ${datasetList}">
                 <td th:text="${dataset.nomDataset}">Nom du dataset</td>
-                <td  th:text="${avancements[dataset.id] + '%'}">
+                <td th:text="${(avancements[dataset.id] != null and avancements[dataset.id].toString() != 'NaN') ? avancements[dataset.id] + '%' : '0%'}">Avancement</td>
 
-                           Avancement
 
-                </td>
                 <td>
                     <a class="btn btn-sm btn-outline-primary me-2"
                        th:href="@{/admin/lister-dataset/details/{id}(id=${dataset.id})}">

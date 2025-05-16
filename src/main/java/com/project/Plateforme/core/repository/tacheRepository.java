@@ -1,9 +1,7 @@
 package com.project.Plateforme.core.repository;
 
-import com.project.Plateforme.core.bo.dataset;
-import com.project.Plateforme.core.bo.tache;
+import com.project.Plateforme.core.bo.*;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.project.Plateforme.core.bo.annotateur;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

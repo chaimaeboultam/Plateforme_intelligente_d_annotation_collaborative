@@ -71,7 +71,9 @@
 
     <div class="mb-4">
         <h3>Nombre de paires de textes : <span th:text="${#lists.size(textPairs)}">0</span></h3>
-        <h3>Avancement : <span th:text="${avancement} + '%'"></span></h3>
+        <h3>Avancement :
+            <span th:text="${(avancement != null and avancement.toString() != 'NaN') ? avancement + '%' : '0%'}"></span>
+        </h3>
 
 
 

@@ -55,7 +55,7 @@ public class annotateurController{
             Map<Long, Float> avancements = new HashMap<>();
             List<dataset> datasetList = datasetService.getAllDatasets();
             for (dataset d : datasetList) {
-                float avancement = annotationService.Getavancement(d.getId());
+                float avancement = annotationService.GetAvancementAnnotateur(d.getId(), annot.getId());
                 avancements.put(d.getId(), avancement);
             }
             model.addAttribute("avancements", avancements);

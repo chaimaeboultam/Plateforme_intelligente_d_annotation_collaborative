@@ -1,6 +1,7 @@
 package com.project.Plateforme.service;
 
 import com.project.Plateforme.core.bo.TextPair;
+import com.project.Plateforme.core.bo.annotateur;
 import com.project.Plateforme.core.repository.annotationRepository;
 import com.project.Plateforme.core.repository.textPairRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,26 @@ public class annotationServiceImpl implements annotationService {
         float avancement = (AnnotationSize / (float) TextPairSize)*100;
         return avancement;
 
+    }
+    @Override
+    public float GetAvancementAnnotateur(long datasetId, long annotateurId) {
+        // 1. Récupérer tous les TextPairs affectés à cet annotateur dans ce dataset
+        List<TextPair> textPairsAffectes = textPairRepository.getAllByDatasetIdAndAnnotateurId(datasetId, annotateurId);
+
+        // 2. Récupérer les annotations faites par cet annotateur dans ce dataset
+        List<Annotation> annotations = annotationRepository.findByDatasetIdAndAnnotateurId(datasetId, annotateurId);
+
+        int nbTextPairsAffectes = textPairsAffectes.size();
+        int nbAnnotations = annotations.size();
+
+        if (nbTextPairsAffectes == 0) return 0f;
+
+        float avancement = (nbAnnotations / (float) nbTextPairsAffectes) * 100;
+        return avancement;
+    }
+
+    public annotateur findAnnotateurByTextPair(TextPair textPair) {
+        List<annotateur> annotateurs = annotationRepository.findAnnotateursByTextPair(textPair);
+        return annotateurs.isEmpty() ? null : annotateurs.get(0);
     }
 }

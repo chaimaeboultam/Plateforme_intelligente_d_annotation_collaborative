@@ -17,4 +17,9 @@ public interface annotationRepository extends JpaRepository<Annotation, Long> {
  public Optional<String> findLabelByTextPairById(@Param("tp") Long tp);
  @Query("SELECT t FROM Annotation t WHERE t.textPair.dataset.id = :id")
  public List<Annotation> getAllByDatasetId(Long id);
+ @Query("SELECT a.annotateur FROM Annotation a WHERE a.textPair = :textPair")
+ List<annotateur> findAnnotateursByTextPair(@Param("textPair") TextPair textPair);
+ @Query("SELECT a FROM Annotation a WHERE a.textPair.dataset.id = :datasetId AND a.annotateur.id = :annotateurId")
+ List<Annotation> findByDatasetIdAndAnnotateurId(@Param("datasetId") long datasetId, @Param("annotateurId") long annotateurId);
+
 }

@@ -51,7 +51,7 @@
         <td th:text="${t.id}">1</td>
         <td th:text="${t.dataset.nomDataset}">Nom Dataset</td>
         <td th:text="${#dates.format(t.dateLimite, 'dd-MM-yyyy')}">01-01-2025</td>
-        <td th:text="${avancements[t.dataset.id]+ '%'}"></td>
+        <td th:text="${(avancements[t.dataset.id] != null and avancements[t.dataset.id].toString() != 'NaN') ? avancements[t.dataset.id] + '%' : '0%'}">Avancement</td>
         <td th:text="${#lists.size(t.textPairs)}"></td>
         <td>
           <a th:href="@{'/annotateur/annoter?tacheId=' + ${t.id}}" class="btn btn-success btn-sm">

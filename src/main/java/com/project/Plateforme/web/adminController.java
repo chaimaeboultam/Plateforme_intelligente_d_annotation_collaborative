@@ -63,6 +63,8 @@ public class adminController {
     private classePossiblesService classePossiblesService;
     @Autowired
     private annotationService annotationService;
+    @Autowired
+    private annotationRepository annotationRepository;
     @GetMapping
     public String ShowAdminPage() {
         return "admin";
@@ -343,11 +345,13 @@ public class adminController {
         response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
 
         try (PrintWriter writer = response.getWriter()) {
-            writer.println("text1,text2,label"); // Write header
+            writer.println("ID,text1,text2,label,Annotateur"); // Write header
 
             for (TextPair tp : textPairs) {
                 String label = annotationService.findLabelByTextPairById(tp.getId()).orElse("non-annoté");
-                writer.printf("\"%s\",\"%s\",\"%s\"%n", tp.getText1(), tp.getText2(), label); // Write data
+                annotateur annotateur = tp.getTache().getAnnotateur();
+                String annotateurName = annotateur != null ? annotateur.getNom()+" "+annotateur.getPrenom() : "";
+                writer.printf("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"%n", tp.getId(),tp.getText1(), tp.getText2(), label, annotateurName); // Write data
             }
         } catch (IOException e) {
             throw new RuntimeException("Erreur lors de l'écriture du fichier CSV", e);

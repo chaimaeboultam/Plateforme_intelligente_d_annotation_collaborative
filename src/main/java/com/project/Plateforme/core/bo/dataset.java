@@ -52,4 +52,6 @@ public class dataset {
         this.classePossiblesList = classePossiblesList;
     }
     public List<classePossibles> getClassePossiblesList() { return classePossiblesList; }
+    public void setTaches (List<tache> taches) { this.taches = taches; }
+    public List<tache> getTaches() { return taches; }
 }
