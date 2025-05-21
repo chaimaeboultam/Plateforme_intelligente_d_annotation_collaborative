@@ -1,44 +1,186 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Annotateur</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <title>Dashboard Annotateur</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet" />
     <style>
+        /* Base */
         body {
-            background: linear-gradient(to right, #f8f9fa, #e0eafc);
+            margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f8;
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        .welcome-box {
-            margin-top: 120px;
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 100vh;
+            background: linear-gradient(135deg, #4a90e2 0%, #357ABD 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem 1rem;
+            box-shadow: 4px 0 12px rgba(53, 122, 189, 0.25);
+        }
+
+        .sidebar h4 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+            color: #e1e9f8;
+        }
+
+        .sidebar a {
+            color: #cbd6f5;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar a i {
+            margin-right: 15px;
+            font-size: 1.4rem;
+            color: #a7b4db;
+            transition: color 0.3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .sidebar a:hover i,
+        .sidebar a.active i {
+            color: #fff;
+        }
+
+        /* Main content */
+        .content {
+            margin-left: 240px;
+            padding: 3rem;
+            min-height: 100vh;
+        }
+
+        .dashboard-title {
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        /* Welcome section */
+        .welcome-card {
+            background: #fff;
+            padding: 2rem 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .welcome-card h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-card h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #4a90e2;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-card p {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-card .btn {
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            border-radius: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 1rem;
+                flex-direction: row;
+                justify-content: space-around;
+            }
+
+            .sidebar h4 {
+                display: none;
+            }
+
+            .sidebar a {
+                margin-bottom: 0;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-card h1 {
+                font-size: 1.8rem;
+            }
+
+            .welcome-card h2 {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
 
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="/annotateur"><i class="bi bi-speedometer2"></i> ANNOTATEUR</a>
+    <a href="/annotateur/lister-taches" class="active"><i class="bi bi-folder-plus"></i>Lister Tâches</a>
+    <a href="/login"><i class="bi bi-box-arrow-right"></i>Déconnexion</a>
+</div>
+
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/annotateur">Espace Annotateur</a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/annotateur/lister-taches">Mes Tâches</a></li>
-                <li class="nav-item"><a class="nav-link" href="/login">Déconnexion</a></li>
-            </ul>
-        </div>
-    </div>
+<nav class="navbar bg-white px-4 shadow-sm" style="margin-left:240px;">
+    <a class="navbar-brand fw-bold" href="/annotateur">Espace Annotateur</a>
 </nav>
 
-<!-- Contenu principal -->
-<div class="container welcome-box text-center">
-    <h1 class="mb-4">Bienvenue,</h1>
-    <h2 class="text-primary" th:text="${annotateur.prenom} + ' ' + ${annotateur.nom}">Nom Prénom</h2>
-
-    <div class="mt-5">
-        <a href="/annotateur/lister-taches" class="btn btn-outline-primary btn-lg">Voir les tâches</a>
-    </div>
-</div>
+<!-- Main Content -->
+<main class="content" role="main">
+    <section class="welcome-card">
+        <h1>Bienvenue,</h1>
+        <h2 th:text="${annotateur.prenom} + ' ' + ${annotateur.nom}">Nom Prénom</h2>
+        <p>Voici votre tableau de bord pour gérer vos tâches d'annotation.</p>
+        <a href="/annotateur/lister-taches" class="btn btn-primary">Voir les tâches</a>
+    </section>
+</main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>

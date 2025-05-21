@@ -7,6 +7,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -168,16 +171,17 @@ public class adminController {
     }
 
     @GetMapping("/lister-dataset/details/{id}")
-    public String afficherDetailsDataset(@PathVariable Long id, Model model) {
+    public String afficherDetailsDataset(@PathVariable Long id, @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "5") int size, Model model) {
         dataset dataset = datasetRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Dataset non trouvé"));
 
         model.addAttribute("dataset", dataset);
         model.addAttribute("avancement", annotationService.Getavancement(dataset.getId()));
         // Récupérer les textPairs si tu les gardes dans dataset (facultatif si tu relies TextPair à Tache)
-        List<TextPair> textPairs = dataset.getTextPairs();
-        model.addAttribute("textPairs", textPairs);
-
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TextPair> textPairPage = textPairRepository.findByDataset(dataset, pageable);
+        model.addAttribute("textPairPage", textPairPage);
         // Récupérer les annotateurs à partir des tâches liées à ce dataset
         List<annotateur> annotateurs = TacheRepository.findAnnotateursByDatasetId(id);
         model.addAttribute("annotateurs", annotateurs);
@@ -287,7 +291,7 @@ public class adminController {
         existing.setLogin(annotateur.getLogin());
         existing.setNom(annotateur.getNom());
         existing.setPrenom(annotateur.getPrenom());
-        existing.setPassword(annotateur.getPassword());
+        existing.setPassword(existing.getPassword());
 
         existing.setActif(true);
 

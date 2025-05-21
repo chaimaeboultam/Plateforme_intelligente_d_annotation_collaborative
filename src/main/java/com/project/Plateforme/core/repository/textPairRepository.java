@@ -2,6 +2,8 @@ package com.project.Plateforme.core.repository;
 import com.project.Plateforme.core.bo.TextPair;
 import com.project.Plateforme.core.bo.annotateur;
 import com.project.Plateforme.core.bo.dataset;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,5 +19,7 @@ public interface textPairRepository extends JpaRepository<TextPair, Long>{
     public List<TextPair> getAllByDatasetId(@Param("id") long id);
     @Query("SELECT tp FROM TextPair tp WHERE tp.dataset.id = :datasetId AND tp.tache.annotateur.id = :annotateurId")
     List<TextPair> getAllByDatasetIdAndAnnotateurId(@Param("datasetId") long datasetId, @Param("annotateurId") long annotateurId);
+    @Query("SELECT t FROM TextPair t WHERE t.dataset = :dataset")
+    Page<TextPair> findByDataset(@Param("dataset") dataset dataset, Pageable pageable);
 
 }

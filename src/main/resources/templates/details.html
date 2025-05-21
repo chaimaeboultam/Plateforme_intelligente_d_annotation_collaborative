@@ -5,31 +5,173 @@
     <title>Détails du Dataset</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        body {
-            background: linear-gradient(to right, #f0f4f8, #e0f7fa);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* Reset and Base Styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
         }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f8;
+            color: #2c3e50;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Layout */
+        .wrapper {
+            display: flex;
+            height: 100%;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: linear-gradient(135deg, #4a90e2, #357ABD);
+            color: #e1e9f8;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem 1rem;
+            box-shadow: 4px 0 12px rgba(53, 122, 189, 0.25);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar h4 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #cbd6f5;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a i {
+            margin-right: 15px;
+            font-size: 1.4rem;
+            color: #a7b4db;
+            transition: color 0.3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .sidebar a:hover i,
+        .sidebar a.active i {
+            color: #fff;
+        }
+
+        /* Content */
+        .content {
+            margin-left: 440px;
+            padding: 3rem;
+            background: #f4f6f8;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Titles */
+        h1, .dashboard-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            letter-spacing: 0.03em;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #0d6efd;
+        }
+
+        /* Cards */
+        .card, .dashboard-cards a {
+            background: #fff;
+            border: none;
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+            padding: 2.5rem 2rem;
+            margin-bottom: 20px;
+            transition: box-shadow 0.35s ease, transform 0.3s ease;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .card:hover,
+        .dashboard-cards a:hover {
+            box-shadow: 0 20px 38px rgba(0, 0, 0, 0.1);
+            transform: translateY(-6px);
+            color: #357ABD;
+        }
+
+        .dashboard-cards a i {
+            font-size: 2rem;
+            color: #4a90e2;
+            transition: color 0.3s ease;
+        }
+
+        .dashboard-cards a:hover i {
+            color: #357ABD;
+        }
+
+        /* Navbar */
         .navbar {
             background-color: #0d6efd;
         }
 
-        .navbar-brand, .nav-link {
+        .navbar-brand,
+        .nav-link {
             color: white !important;
         }
 
         .nav-link:hover {
             text-decoration: underline;
         }
+
+        /* Buttons */
+        .btn-secondary {
+            border-radius: 12px;
+        }
+
+        /* Container Spacing */
         .container {
-            margin-top: 90px;
+            margin-top: 100px;
+            margin-bottom: 40px;
         }
-        h1, h2, h3 {
-            color: #0d6efd;
-        }
-        table {
-            background-color: #ffffff;
-        }
+
+        /* Progress Bar */
         .progress-container {
             background-color: #e9ecef;
             border-radius: 10px;
@@ -37,73 +179,84 @@
             height: 24px;
             margin-bottom: 20px;
         }
+
+        /* Pagination */
+        .pagination .page-item.active .page-link {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                padding: 1rem;
+                box-shadow: none;
+            }
+
+            .sidebar h4 {
+                display: none;
+            }
+
+            .sidebar a {
+                flex-grow: 1;
+                justify-content: center;
+                font-size: 0.9rem;
+                padding: 0.8rem 0.5rem;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 2rem 1rem;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
     </style>
 </head>
 <body>
+<div class="wrapper">
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="/admin"><i class="bi bi-speedometer2"></i> ADMIN</a>
+    <a href="/admin/creer-dataset" class="active"><i class="bi bi-folder-plus"></i>Créer Dataset</a>
+    <a href="/admin/lister-dataset"><i class="bi bi-list-ul"></i>Lister Datasets</a>
+    <a href="/admin/gerer_annotateur"><i class="bi bi-people"></i>Annotateurs</a>
+    <a href="/admin/importer_dataset"><i class="bi bi-upload"></i>Importer Dataset</a>
+    <a href="/login"><i class="bi bi-box-arrow-right"></i>Déconnexion</a>
+</div>
 
-<!-- Top Navigation Bar -->
-<!-- ✅ Navbar top fixed -->
-<nav class="navbar navbar-expand-lg fixed-top shadow">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/admin"><i class="bi bi-speedometer2"></i> Admin Panel</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/admin/creer-dataset">Créer Dataset</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/lister-dataset">Lister Datasets</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/gerer_annotateur">Annotateurs</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/importer_dataset">Importer Dataset</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="content">
+    <h1 class="text-center mb-5"><i class="bi bi-database-check"></i> Détails du Dataset</h1>
 
-<div class="container">
-    <h1 class="text-center">Détails du Dataset</h1>
-
-    <div class="mb-4">
-        <h2>Nom : <span th:text="${dataset.nomDataset}">Nom du dataset</span></h2>
-        <h2>Description : <span th:text="${dataset.description}">Description</span></h2>
-        <h2>Classes : <span th:text="${dataset.classes}">Classes</span></h2>
+    <!-- Infos dataset -->
+    <div class="card p-4">
+        <div class="section-title">Informations Générales</div>
+        <p><strong>Nom :</strong> <span th:text="${dataset.nomDataset}">Nom du dataset</span></p>
+        <p><strong>Description :</strong> <span th:text="${dataset.description}">Description</span></p>
+        <p><strong>Classes :</strong> <span th:text="${dataset.classes}">Classes</span></p>
     </div>
 
-    <div class="mb-4">
-        <h3>Nombre de paires de textes : <span th:text="${#lists.size(textPairs)}">0</span></h3>
-        <h3>Avancement :
-            <span th:text="${(avancement != null and avancement.toString() != 'NaN') ? avancement + '%' : '0%'}"></span>
-        </h3>
-
-
-
-    </div>
-
-    <div class="mb-4">
-        <h3>TextPairs :</h3>
+    <!-- Annotateurs -->
+    <div class="card p-4">
+        <div class="section-title">Annotateurs</div>
         <div class="table-responsive">
-            <table class="table table-striped table-hover shadow">
-                <thead class="table-primary">
-                <tr>
-                    <th>Texte 1</th>
-                    <th>Texte 2</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="textPair : ${textPairs}">
-                    <td th:text="${textPair.text1}">Texte 1</td>
-                    <td th:text="${textPair.text2}">Texte 2</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="mb-4">
-        <h3>Annotateurs :</h3>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover shadow">
-                <thead class="table-primary">
+            <table class="table table-hover">
+                <thead class="table-light">
                 <tr>
                     <th>Nom</th>
                     <th>Prénom</th>
@@ -119,11 +272,54 @@
         </div>
     </div>
 
-    <div class="text-end">
-        <a href="/admin/lister-dataset" class="btn btn-secondary">Retour à la liste</a>
+    <!-- TextPairs & Avancement -->
+    <div class="card p-4">
+        <div class="section-title">Contenu</div>
+        <p><strong>Nombre de paires de textes :</strong> <span th:text="${#lists.size(textPairPage.content)}">0</span></p>
+        <p><strong>Avancement :</strong>
+            <span th:text="${(avancement != null and avancement.toString() != 'NaN') ? avancement + '%' : '0%'}">0%</span>
+        </p>
+
+        <div class="table-responsive mt-4">
+            <table class="table table-hover">
+                <thead class="table-light">
+                <tr>
+                    <th>Texte 1</th>
+                    <th>Texte 2</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="textPair : ${textPairPage.content}">
+                    <td th:text="${textPair.text1}">Texte 1</td>
+                    <td th:text="${textPair.text2}">Texte 2</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Navigation des pages" class="mt-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${textPairPage.first} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${textPairPage.number - 1}&size=${textPairPage.size}|}">Précédent</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, textPairPage.totalPages - 1)}"
+                th:classappend="${i == textPairPage.number} ? 'active'">
+                <a class="page-link" th:href="@{|?page=${i}&size=${textPairPage.size}|}" th:text="${i + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${textPairPage.last} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${textPairPage.number + 1}&size=${textPairPage.size}|}">Suivant</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Retour -->
+    <div class="text-end mt-4">
+        <a href="/admin/lister-dataset" class="btn btn-outline-secondary"><i class="bi bi-arrow-left-circle"></i> Retour à la liste</a>
     </div>
 </div>
-
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

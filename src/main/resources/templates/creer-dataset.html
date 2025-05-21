@@ -5,6 +5,8 @@
     <title>Créer un Dataset</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet" />
+
     <style>
         body {
             background: linear-gradient(to right, #f0f4f8, #e0f7fa);
@@ -44,31 +46,192 @@
         .nav-link:hover {
             text-decoration: underline;
         }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f8;
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 100vh;
+            background: linear-gradient(135deg, #4a90e2 0%, #357ABD 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 2.5rem 1rem;
+            box-shadow: 4px 0 12px rgba(53, 122, 189, 0.25);
+            transition: background 0.3s ease;
+        }
+
+        .sidebar h4 {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+            user-select: none;
+            color: #e1e9f8;
+        }
+
+        .sidebar a {
+            color: #cbd6f5;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+            user-select: none;
+        }
+
+        .sidebar a i {
+            margin-right: 15px;
+            font-size: 1.4rem;
+            color: #a7b4db;
+            transition: color 0.3s;
+            flex-shrink: 0;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .sidebar a:hover i,
+        .sidebar a.active i {
+            color: #fff;
+        }
+
+        /* Main content */
+        .content {
+            margin-left: 240px;
+            padding: 3rem 3rem 4rem 3rem;
+            min-height: 100vh;
+            background: #f4f6f8;
+            transition: margin-left 0.3s ease;
+        }
+
+        .dashboard-title {
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            letter-spacing: 0.03em;
+            user-select: none;
+        }
+
+        /* Cards container */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Cards */
+        .dashboard-cards a {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgb(0 0 0 / 0.06);
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            transition: box-shadow 0.35s ease, transform 0.3s ease;
+            user-select: none;
+        }
+
+        .dashboard-cards a i {
+            font-size: 2rem;
+            color: #4a90e2;
+            flex-shrink: 0;
+            transition: color 0.3s ease;
+        }
+
+        .dashboard-cards a:hover {
+            box-shadow: 0 20px 38px rgb(0 0 0 / 0.1);
+            transform: translateY(-6px);
+            color: #357ABD;
+        }
+
+        .dashboard-cards a:hover i {
+            color: #357ABD;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                padding: 1rem 1rem 0.5rem;
+                flex-direction: row;
+                justify-content: space-around;
+                box-shadow: none;
+            }
+
+            .sidebar h4 {
+                display: none;
+            }
+
+            .sidebar a {
+                margin-bottom: 0;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 2rem 1.5rem 3rem;
+            }
+
+            .dashboard-cards {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-cards {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
     <script>
         function cancelForm() {
             window.location.href = "/admin";
         }
+
     </script>
 </head>
 <body>
-<!-- ✅ Navbar top fixed -->
-<nav class="navbar navbar-expand-lg fixed-top shadow">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/admin"><i class="bi bi-speedometer2"></i> Admin Panel</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/admin/creer-dataset">Créer Dataset</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/lister-dataset">Lister Datasets</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/gerer_annotateur">Annotateurs</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/importer_dataset">Importer Dataset</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<!-- Sidebar -->
+<div class="sidebar">
+    <a href="/admin"><i class="bi bi-speedometer2"></i> ADMIN</a>
+    <a href="/admin/creer-dataset" class="active"><i class="bi bi-folder-plus"></i>Créer Dataset</a>
+    <a href="/admin/lister-dataset"><i class="bi bi-list-ul"></i>Lister Datasets</a>
+    <a href="/admin/gerer_annotateur"><i class="bi bi-people"></i>Annotateurs</a>
+    <a href="/admin/importer_dataset"><i class="bi bi-upload"></i>Importer Dataset</a>
+    <a href="/login"><i class="bi bi-box-arrow-right"></i>Déconnexion</a>
+</div>
 <div class="form-container">
     <div class="form-title">Créer un Dataset</div>
 
@@ -106,6 +269,7 @@
         <p th:text="${error}"></p>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
